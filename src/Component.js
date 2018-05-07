@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+import debounce from "debounce";
 
 import Portal from "./Portal";
 
@@ -8,20 +9,23 @@ class Component extends React.Component {
     this.childRef = React.createRef();
   }
 
+  static defaultProps = {
+    debounce: 50
+  };
+
   state = {
     rect: {}
   };
 
   componentDidMount() {
     this._getPosition();
-    // TODO: Throttle these
-    window.addEventListener("scroll", this._getPosition);
-    window.addEventListener("resize", this._getPosition);
+    window.addEventListener("scroll", this._debouncedGetPosition);
+    window.addEventListener("resize", this._debouncedGetPosition);
   }
 
   componentWillUnmount() {
-    window.removeEventListener("scroll", this._getPosition);
-    window.removeEventListener("resize", this._getPosition);
+    window.removeEventListener("scroll", this._debouncedGetPosition);
+    window.removeEventListener("resize", this._debouncedGetPosition);
   }
 
   _getPosition = () => {
@@ -30,6 +34,8 @@ class Component extends React.Component {
       this.setState(() => ({ rect }));
     }
   };
+
+  _debouncedGetPosition = debounce(this._getPosition, this.props.debounce);
 
   render() {
     return (
