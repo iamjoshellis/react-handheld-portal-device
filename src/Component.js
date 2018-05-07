@@ -19,8 +19,8 @@ class Component extends React.Component {
 
   componentDidMount() {
     this._getPosition();
-    window.addEventListener("scroll", this._debouncedGetPosition);
-    window.addEventListener("resize", this._debouncedGetPosition);
+    window.addEventListener("scroll", this._debouncedGetPosition, true);
+    window.addEventListener("resize", this._debouncedGetPosition, true);
   }
 
   componentWillReceiveProps() {
