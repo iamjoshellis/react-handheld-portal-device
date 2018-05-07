@@ -5,7 +5,7 @@ import Portal from "./Portal";
 class Component extends React.Component {
   constructor(props) {
     super(props);
-    this.scoutRef = React.createRef();
+    this.childRef = React.createRef();
   }
 
   state = {
@@ -25,8 +25,8 @@ class Component extends React.Component {
   }
 
   _getPosition = () => {
-    if (this.scoutRef.current) {
-      const rect = this.scoutRef.current.parentElement.getBoundingClientRect();
+    if (this.childRef.current) {
+      const rect = this.childRef.current.parentElement.getBoundingClientRect();
       this.setState(() => ({ rect }));
     }
   };
@@ -36,20 +36,23 @@ class Component extends React.Component {
       <Fragment>
         <Portal>
           <div
+            {...this.props}
             style={{
               position: "fixed",
+              pointerEvents: "none",
               left: this.state.rect.left,
               top: this.state.rect.top,
               bottom: this.state.rect.bottom,
               right: this.state.rect.right,
               width: this.state.rect.width,
-              height: this.state.rect.height
+              height: this.state.rect.height,
+              ...this.props.style
             }}
           >
             {this.props.children}
           </div>
         </Portal>
-        <span ref={this.scoutRef} />
+        <span ref={this.childRef} />
       </Fragment>
     );
   }
