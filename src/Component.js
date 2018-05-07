@@ -23,6 +23,10 @@ class Component extends React.Component {
     window.addEventListener("resize", this._debouncedGetPosition);
   }
 
+  componentWillReceiveProps() {
+    this._getPosition();
+  }
+
   componentWillUnmount() {
     window.removeEventListener("scroll", this._debouncedGetPosition);
     window.removeEventListener("resize", this._debouncedGetPosition);
