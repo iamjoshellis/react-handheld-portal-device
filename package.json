@@ -1,6 +1,6 @@
 {
   "name": "react-handheld-portal-device",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Perfectly positioned portals... 📏",
   "main": "dist/index.js",
   "scripts": {

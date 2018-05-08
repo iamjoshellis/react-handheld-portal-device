@@ -28,8 +28,8 @@ class Component extends React.Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener("scroll", this._debouncedGetPosition);
-    window.removeEventListener("resize", this._debouncedGetPosition);
+    window.removeEventListener("scroll", this._debouncedGetPosition, true);
+    window.removeEventListener("resize", this._debouncedGetPosition, true);
   }
 
   _getPosition = () => {
@@ -62,7 +62,7 @@ class Component extends React.Component {
             {this.props.children}
           </div>
         </Portal>
-        <span ref={this.childRef} />
+        <span style={{ display: "none" }} ref={this.childRef} />
       </Fragment>
     );
   }
