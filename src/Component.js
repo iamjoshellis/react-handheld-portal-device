@@ -3,6 +3,17 @@ import debounce from "debounce";
 
 import Portal from "./Portal";
 
+// const scrollHandlers = [];
+// const resizeHandlers = [];
+
+// const executeHandlers = handlers =>
+//   handlers.forEach(handler => {
+//     handler();
+//   });
+
+// window.addEventListener("scroll", executeHandlers(scrollHandlers), true);
+// window.addEventListener("resize", executeHandlers(resizeHandlers), true);
+
 class Component extends React.Component {
   constructor(props) {
     super(props);
@@ -10,21 +21,21 @@ class Component extends React.Component {
   }
 
   static defaultProps = {
-    debounce: 50
+    debounce: 16
   };
 
   state = {
-    rect: {}
+    parentRect: {}
   };
 
   componentDidMount() {
-    this._getPosition();
+    this._getParentPosition();
     window.addEventListener("scroll", this._debouncedGetPosition, true);
     window.addEventListener("resize", this._debouncedGetPosition, true);
   }
 
   componentWillReceiveProps() {
-    this._getPosition();
+    this._getParentPosition();
   }
 
   componentWillUnmount() {
@@ -32,36 +43,27 @@ class Component extends React.Component {
     window.removeEventListener("resize", this._debouncedGetPosition, true);
   }
 
-  _getPosition = () => {
+  _getParentPosition = () => {
     if (this.childRef.current) {
-      const rect = this.childRef.current.parentElement.getBoundingClientRect();
-      this.setState(() => ({ rect }));
+      const parentRect = this.childRef.current.parentElement.getBoundingClientRect();
+      this.setState(() => ({ parentRect }));
     }
   };
 
-  _debouncedGetPosition = debounce(this._getPosition, this.props.debounce);
+  renderPropsOrChildren = () =>
+    typeof this.props.children === "function"
+      ? this.props.children(this.state.parentRect)
+      : this.props.children;
+
+  _debouncedGetPosition = debounce(
+    this._getParentPosition,
+    this.props.debounce
+  );
 
   render() {
     return (
       <Fragment>
-        <Portal>
-          <div
-            {...this.props}
-            style={{
-              position: "fixed",
-              pointerEvents: "none",
-              left: this.state.rect.left,
-              top: this.state.rect.top,
-              bottom: this.state.rect.bottom,
-              right: this.state.rect.right,
-              width: this.state.rect.width,
-              height: this.state.rect.height,
-              ...this.props.style
-            }}
-          >
-            {this.props.children}
-          </div>
-        </Portal>
+        <Portal>{this.renderPropsOrChildren()}</Portal>
         <span style={{ display: "none" }} ref={this.childRef} />
       </Fragment>
     );
