@@ -1,6 +1,6 @@
 {
   "name": "react-handheld-portal-device",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Makes positioning portaled tooltips/dropdowns/etc a piece of cake 🍰!",
   "main": "dist/index.js",
   "scripts": {
