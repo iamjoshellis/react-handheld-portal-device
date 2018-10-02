@@ -33,8 +33,10 @@ class Component extends React.Component {
   }
 
   _getParentPosition = () => {
+    const { parentRef } = this.props;
     const parentRect =
-      (this.props.parentRef && this.props.parentRef.getBoundingClientRect()) ||
+      (parentRef.current && parentRef.current.getBoundingClientRect()) ||
+      (parentRef && parentRef.getBoundingClientRect()) ||
       (this.childRef.current && this.childRef.current.parentElement.getBoundingClientRect());
     if (parentRect) {
       this.setState(() => ({ parentRect }));
