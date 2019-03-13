@@ -3,22 +3,22 @@ import * as debounce from 'debounce';
 
 import Portal from './Portal';
 
-export type Props = {
+type Props = {
   debounce?: number;
   parentRef?: any;
-  children: React.ReactNode;
+  children: (parentRect: ClientRect) => React.ReactNode;
 };
 
-export type State = {
-  parentRect: ClientRect
-}
+type State = {
+  parentRect: ClientRect;
+};
 
 class Component extends React.Component<Props, State> {
-  childRef = React.createRef<HTMLSpanElement>();
-
   static defaultProps = {
     debounce: 16,
   };
+
+  childRef = React.createRef<HTMLSpanElement>();
 
   state = {
     parentRect: {
@@ -31,22 +31,7 @@ class Component extends React.Component<Props, State> {
     },
   };
 
-  componentDidMount() {
-    this._getParentPosition();
-    window.addEventListener('scroll', this._debouncedGetPosition, true);
-    window.addEventListener('resize', this._debouncedGetPosition, true);
-  }
-
-  componentWillReceiveProps() {
-    this._getParentPosition();
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this._debouncedGetPosition, true);
-    window.removeEventListener('resize', this._debouncedGetPosition, true);
-  }
-
-  _getParentPosition = () => {
+  getParentPosition = () => {
     const { parentRef } = this.props;
     const parentRect =
       (parentRef && parentRef.current && parentRef.current.getBoundingClientRect()) ||
@@ -57,17 +42,27 @@ class Component extends React.Component<Props, State> {
     }
   };
 
-  renderPropsOrChildren = () =>
-    typeof this.props.children === 'function'
-      ? this.props.children(this.state.parentRect)
-      : this.props.children;
+  debouncedGetPosition = debounce(this.getParentPosition, this.props.debounce);
 
-  _debouncedGetPosition = debounce(this._getParentPosition, this.props.debounce);
+  componentDidMount() {
+    this.getParentPosition();
+    window.addEventListener('scroll', this.debouncedGetPosition, true);
+    window.addEventListener('resize', this.debouncedGetPosition, true);
+  }
+
+  componentWillReceiveProps() {
+    this.getParentPosition();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.debouncedGetPosition, true);
+    window.removeEventListener('resize', this.debouncedGetPosition, true);
+  }
 
   render() {
     return (
       <React.Fragment>
-        <Portal>{this.renderPropsOrChildren()}</Portal>
+        <Portal>{this.props.children(this.state.parentRect)}</Portal>
         {!this.props.parentRef && <span style={{ display: 'none' }} ref={this.childRef} />}
       </React.Fragment>
     );

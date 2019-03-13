@@ -38,7 +38,8 @@
     "prefer-array-literal": false,
     "object-shorthand-properties-first": false,
     "interface-over-type-literal": false,
-    "ordered-imports": false
+    "ordered-imports": false,
+    "member-ordering": false
   },
   "jsRules": {},
   "rulesDirectory": []
