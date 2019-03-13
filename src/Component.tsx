@@ -1,13 +1,16 @@
-import React, { Fragment } from 'react';
+import * as React from 'react';
 import debounce from 'debounce';
 
 import Portal from './Portal';
 
-class Component extends React.Component {
-  constructor(props) {
-    super(props);
-    this.childRef = React.createRef();
-  }
+export type Props = {
+  debounce?: number;
+  parentRef?: any;
+  children: React.ReactNode;
+};
+
+class Component extends React.Component<Props> {
+  childRef = React.createRef<HTMLSpanElement>();
 
   static defaultProps = {
     debounce: 16,
@@ -52,10 +55,10 @@ class Component extends React.Component {
 
   render() {
     return (
-      <Fragment>
+      <React.Fragment>
         <Portal>{this.renderPropsOrChildren()}</Portal>
         {!this.props.parentRef && <span style={{ display: 'none' }} ref={this.childRef} />}
-      </Fragment>
+      </React.Fragment>
     );
   }
 }

@@ -1,10 +1,12 @@
 {
   "name": "react-handheld-portal-device",
   "version": "0.0.11",
-  "description": "Makes positioning portaled tooltips/dropdowns/etc a piece of cake 🍰!",
+  "description": "Makes positioning portaled tooltips/dropdowns/etc a piece of cake 🌀!",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "babel ./src -d ./dist"
+    "start": "tsc --watch",
+    "build": "tsc"
   },
   "author": "Josh Ellis <iamjoshellis@gmail.com>",
   "license": "MIT",
@@ -22,25 +24,20 @@
     "component"
   ],
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-eslint": "^8.2.2",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "eslint": "^4.18.2",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-import": "^2.9.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-prettier": "^2.6.0",
-    "eslint-plugin-react": "^7.7.0",
-    "prettier": "1.11.1"
-  },
-  "peerDependencies": {
-    "react": ">=16.0.0",
-    "react-dom": ">=16.0.0"
+    "@types/react": "^16.8.1",
+    "prettier": "^1.15.3",
+    "tslint": "^5.12.1",
+    "tslint-clean-code": "^0.2.9",
+    "tslint-config-airbnb": "^5.11.1",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "tslint-react": "^3.6.0",
+    "typescript": "^3.2.2"
   },
   "dependencies": {
-    "debounce": "^1.1.0"
+    "debounce": "^1.1.0",
+    "react": ">=16.0.0",
+    "react-dom": ">=16.0.0"
   }
 }

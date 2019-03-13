@@ -1,11 +1,8 @@
-import React from 'react';
+import * as React from 'react';
 import ReactDOM from 'react-dom';
 
 class Portal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.container = document.createElement('div');
-  }
+  container = document.createElement('div');
 
   componentDidMount() {
     document.body.appendChild(this.container);
