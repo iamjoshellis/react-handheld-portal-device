@@ -32,14 +32,16 @@ class Component extends React.Component<Props, State> {
   };
 
   getParentPosition = () => {
-    const { parentRef } = this.props;
-    const parentRect =
-      (parentRef && parentRef.current && parentRef.current.getBoundingClientRect()) ||
-      (parentRef && parentRef.getBoundingClientRect()) ||
-      (this.childRef.current && this.childRef.current.parentElement.getBoundingClientRect());
-    if (parentRect) {
-      this.setState(() => ({ parentRect }));
-    }
+    window.requestAnimationFrame(() => {
+      const { parentRef } = this.props;
+      const parentRect =
+        (parentRef && parentRef.current && parentRef.current.getBoundingClientRect()) ||
+        (parentRef && parentRef.getBoundingClientRect()) ||
+        (this.childRef.current && this.childRef.current.parentElement.getBoundingClientRect());
+      if (parentRect) {
+        this.setState(() => ({ parentRect }));
+      }
+    });
   };
 
   debouncedGetPosition = debounce(this.getParentPosition, this.props.debounce);

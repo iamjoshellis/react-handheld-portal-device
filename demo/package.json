@@ -2,6 +2,10 @@
   "name": "demo",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public"
+  },
   "dependencies": {
     "@storybook/addon-actions": "^4.1.6",
     "@storybook/addon-knobs": "^4.1.6",
@@ -11,24 +15,22 @@
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-handheld-portal-device": "^0.1.0",
-    "react-scripts": "2.1.3",
+    "react-scripts": "^2.1.8",
     "styled-components": "^4.1.3"
   },
-  "scripts": {
-    "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "babel-loader": "^8.0.5",
+    "eslint": "^5.15.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "prettier": "^1.16.4"
   },
   "browserslist": [
     ">0.2%",
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "babel-loader": "^8.0.5"
-  }
+  ]
 }

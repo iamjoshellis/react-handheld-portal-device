@@ -1,9 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { number, boolean } from '@storybook/addon-knobs';
-import * as S from './styles';
-
 import Portal from 'react-handheld-portal-device';
+import * as S from './styles';
 
 const OPTIONS = {
   range: true,
@@ -17,31 +16,28 @@ const getParentStyle = () => ({
   left: `${number('dest left', 50, OPTIONS)}%`,
 });
 
-class Story extends React.Component {
-  render() {
-    return (
-      <React.Fragment>
-        <S.GlobalStyle />
-        <S.Parent style={getParentStyle()}>
-        <div>Parent 👩‍👦</div>
-        <Portal>
-          {(parentRect) => (
-            <S.Content style={{
+const Story = () => (
+  <React.Fragment>
+    <S.GlobalStyle />
+    <S.Parent style={getParentStyle()}>
+      <div>Parent 👩‍👦</div>
+      <Portal>
+        {parentRect => (
+          <S.Content
+            style={{
               top: parentRect.top,
               left: parentRect.left,
               height: parentRect.height,
               width: parentRect.width,
               display: boolean('Show Portal', true) ? undefined : 'none',
-            }}>
-              <div>Portal 🌀</div>
-            </S.Content>
-          )}
-        </Portal>
-        </S.Parent>
-      </React.Fragment>
-    );
-  }
-}
+            }}
+          >
+            <div>Portal 🌀</div>
+          </S.Content>
+        )}
+      </Portal>
+    </S.Parent>
+  </React.Fragment>
+);
 
 storiesOf('Transformer', module).add('demo', () => <Story />);
-
