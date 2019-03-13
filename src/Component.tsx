@@ -1,5 +1,5 @@
 import * as React from 'react';
-import debounce from 'debounce';
+import * as debounce from 'debounce';
 
 import Portal from './Portal';
 
@@ -9,7 +9,11 @@ export type Props = {
   children: React.ReactNode;
 };
 
-class Component extends React.Component<Props> {
+export type State = {
+  parentRect: ClientRect
+}
+
+class Component extends React.Component<Props, State> {
   childRef = React.createRef<HTMLSpanElement>();
 
   static defaultProps = {
@@ -17,7 +21,14 @@ class Component extends React.Component<Props> {
   };
 
   state = {
-    parentRect: {},
+    parentRect: {
+      bottom: 0,
+      height: 0,
+      left: 0,
+      right: 0,
+      top: 0,
+      width: 0,
+    },
   };
 
   componentDidMount() {
@@ -38,7 +49,7 @@ class Component extends React.Component<Props> {
   _getParentPosition = () => {
     const { parentRef } = this.props;
     const parentRect =
-      (parentRef.current && parentRef.current.getBoundingClientRect()) ||
+      (parentRef && parentRef.current && parentRef.current.getBoundingClientRect()) ||
       (parentRef && parentRef.getBoundingClientRect()) ||
       (this.childRef.current && this.childRef.current.parentElement.getBoundingClientRect());
     if (parentRect) {
