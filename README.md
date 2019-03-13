@@ -18,7 +18,7 @@ import Portal from 'react-handheld-portal-device';
 const Component = () => (
   <Parent>
     <Portal>
-      (parentRect => <Content style={{ position: 'fixed', top: parentRect: top, left: parentRect: left,  }} />)
+      (parentRect => <Content style={{ position: 'fixed', top: parentRect.top, left: parentRect.left,  }} />)
     </Portal>
   </Parent>
 );
