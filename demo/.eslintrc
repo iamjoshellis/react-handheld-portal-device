@@ -1,0 +1,17 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb",
+    "prettier"
+  ],
+  "plugins": ["prettier"],
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "strict": 0,
+    "prettier/prettier": 2,
+    "react/jsx-filename-extension": 0,
+    "jsx-a11y/accessible-emoji": 0
+  }
+}
