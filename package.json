@@ -24,7 +24,7 @@
     "component"
   ],
   "devDependencies": {
-    "@types/react": "^16.8.1",
+    "@types/react": "^16.9.28",
     "prettier": "^1.15.3",
     "tslint": "^5.12.1",
     "tslint-clean-code": "^0.2.9",
